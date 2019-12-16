@@ -14,10 +14,17 @@
   background-color: #f0f0f0;
 }
 
+.bg-light {
+  background: aliceblue !important;
+}
+
 ::ng-deep .mat-card-header-text {
   margin: auto !important;
 }
 
+::ng-deep .mat-header-row {
+  background: aliceblue;
+}
 .data-table-trans {
   margin: 20px auto;
 

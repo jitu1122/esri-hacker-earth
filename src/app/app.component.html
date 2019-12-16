@@ -1,20 +1,67 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<nav class="navbar navbar-light bg-light">
+    <a class="navbar-brand" href="#">
+        <div class="header-container">
+            <img alt="" class="d-inline-block align-top"
+                 src="https://he-s3.s3.amazonaws.com/media/cache/06/f5/06f54f3dc2d0502a85dcc2de517cda98.png">
+            <p> Frontend Challenge Dummy Bank
+            </p>
+        </div>
+    </a>
+</nav>
+<div>
+    <div class="container">
+        <div>
+            <mat-card class="filter-card">
+                <mat-card-header>
+                    <mat-card-title>Select you account</mat-card-title>
+                    <mat-card-subtitle>Pick the account number from the list</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    <mat-form-field>
+                        <mat-select [(value)]="selectedAccount" placeholder="Account No.">
+                            <mat-option *ngFor="let accNo of objKeys(appService.entries)"
+                                        [value]="accNo">{{accNo}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button (click)="onSelect()" color="primary" mat-raised-button>Show Details</button>
+                </mat-card-actions>
+            </mat-card>
+            <div [ngStyle]="{'visibility' : this.showTable ? 'visible' : 'hidden'}" class="data-table-trans">
+                <div class="tab-div">
+                    <table [dataSource]="dataSource" class="mat-elevation-z8" mat-table matSort>
+                        <ng-container matColumnDef="transDate">
+                            <th *matHeaderCellDef mat-header-cell mat-sort-header> Date</th>
+                            <td *matCellDef="let element" mat-cell> {{element.transDate}} </td>
+                        </ng-container>
 
+                        <ng-container matColumnDef="transDetails">
+                            <th *matHeaderCellDef mat-header-cell mat-sort-header> Transaction Details</th>
+                            <td *matCellDef="let element" mat-cell> {{element.transDetails}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="depositAMT">
+                            <th *matHeaderCellDef mat-header-cell mat-sort-header> Deposit AMT</th>
+                            <td *matCellDef="let element" mat-cell> {{element.depositAMT}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="withdrawalAMT">
+                            <th *matHeaderCellDef mat-header-cell mat-sort-header> Withdrawal AMT</th>
+                            <td *matCellDef="let element" mat-cell> {{element.withdrawalAMT}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="balance">
+                            <th *matHeaderCellDef mat-header-cell mat-sort-header> Balance AMT</th>
+                            <td *matCellDef="let element" mat-cell> {{element.balance}} </td>
+                        </ng-container>
+
+                        <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+                        <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+                    </table>
+                </div>
+                <mat-paginator [pageSizeOptions]="[5, 10, 50]" showFirstLastButtons></mat-paginator>
+            </div>
+        </div>
+    </div>
+</div>
